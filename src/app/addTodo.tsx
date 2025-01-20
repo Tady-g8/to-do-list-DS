@@ -66,7 +66,7 @@ export default function AddTodo(){
                     borderRadius="md" 
                 />
             </span>
-            <Button colorScheme="green" type="submit">Add</Button>
+            <Button colorScheme="green" type="submit">+</Button>
         </form>
     );
 }
