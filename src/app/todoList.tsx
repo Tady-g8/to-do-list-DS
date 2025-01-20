@@ -1,6 +1,8 @@
 import { getData, deleteTask, completeTask } from "./actions"
 import { Button, Input } from '@chakra-ui/react'
 import LoadingCircle from "./spinner";
+import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
+import { motion } from 'framer-motion';
 
 import { useEffect, useState } from 'react';
 
@@ -81,46 +83,72 @@ export default function TodoList() {
                 size='md' 
                 className='w-8/12'
                 onChange={(e) => setSearchTerm(e.target.value)}
+                border="1px solid gray"
+                focusBorderColor='green.600'
             />
 
-            {data?.filter(todo => 
+            {data?.filter(todo => todo.completed === 0).filter(todo => 
                 todo.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 todo.description.toLowerCase().includes(searchTerm.toLowerCase())
-            ).sort((a, b) => b.id - a.id).map((todo: Todo) => (
-                todo.completed === 0 ?(
+            ).sort((a, b) => b.id - a.id).map((todo: Todo, index) => (
+                <motion.div
+                    key={todo.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className='todo-item mx-auto my-2'
+                >
                     <div key={todo.id} className='todo-item mx-auto my-2'>
                         <div className="w-full border border-gray-300 p-2 rounded-md">
-                            <div className="grid grid-cols-5 border-b border-gray-300">
-                                <h3 className="my-auto col-span-3 text-3xl mb-1">{todo.title}</h3>
+                            <div className="grid grid-cols-5 md:grid-cols-6 lg:grid-cols-7 border-b border-gray-300">
+                                <h3 className="my-auto col-span-3 md:col-span-4 lg:col-span-5 text-3xl mb-1">{todo.title}</h3>
                                 <div className="col-span-2 grid grid-cols-2 gap-2">
-                                    <Button colorScheme='blue' size="sm" onClick={() => {
+                                    <Button colorScheme="green" size="sm" variant="outline" onClick={() => {
                                         completeTask(todo.id);
                                         window.location.reload();
-                                    }}>Complete</Button>
-                                    <Button colorScheme='red' size="sm" onClick={() => {
+                                    }}><CheckIcon /></Button>
+                                    <Button colorScheme='red' size="sm" variant="outline" onClick={() => {
                                         deleteTask(todo.id);
                                         window.location.reload();
-                                    }}>Delete</Button>
+                                    }}><CloseIcon /></Button>
                                 </div>
                             </div>
                             <p className="mt-4">{todo.description}</p>
                         </div>
                     </div>
-                ) : (
+                </motion.div>
+            ))}
+
+            {data?.filter(todo => todo.completed === 1).filter(todo => 
+                todo.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                todo.description.toLowerCase().includes(searchTerm.toLowerCase())
+            ).sort((a, b) => b.id - a.id).map((todo: Todo, index) => (
+                <motion.div
+                    key={todo.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className='todo-item mx-auto my-2'
+                >
                     <div key={todo.id} className='todo-item mx-auto my-2'>
                         <div className="w-full border border-gray-300 p-2 rounded-md">
-                            <div className="grid grid-cols-5 border-b border-gray-300">
-                                <h3 className="my-auto col-span-4 text-3xl mb-1 line-through text-gray-600">{todo.title}</h3>
-                                <Button colorScheme='red' size="sm" onClick={() => {
-                                    deleteTask(todo.id);
-                                    window.location.reload();
-                                }}>Delete</Button>
+                            <div className="grid grid-cols-5 md:grid-cols-6 lg:grid-cols-7 border-b border-gray-300">
+                                <h3 className="my-auto col-span-3 md:col-span-4 lg:col-span-5 text-3xl mb-1 line-through text-gray-700">{todo.title}</h3>
+                                <span className="col-span-2 grid grid-cols-2 gap-2">
+                                    <span></span>
+                                    <Button colorScheme='red' size="sm" variant="outline" onClick={() => {
+                                        deleteTask(todo.id);
+                                        window.location.reload();
+                                    }}><CloseIcon /></Button>
+                                </span>
                             </div>
                             <p className="mt-4 line-through text-gray-600">{todo.description}</p>
                         </div>
                     </div>
-                )
+                </motion.div>
             ))}
         </div>
     );
 }
+
+

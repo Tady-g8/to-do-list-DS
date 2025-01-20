@@ -4,6 +4,8 @@ import { Input } from '@chakra-ui/react';
 import { useState } from 'react';
 import { addTask } from './actions';
 
+import { AddIcon } from '@chakra-ui/icons';
+
 export default function AddTodo(){
 
     const [taskTitle, setTaskTitle] = useState('');
@@ -59,6 +61,8 @@ export default function AddTodo(){
                         value={taskTitle}
                         onChange={handleTitleChange}
                         bg="gray.50" 
+                        border="1px solid gray"
+                        focusBorderColor='green.600'
                         borderRadius="md" 
                     />
                 </span>
@@ -68,14 +72,16 @@ export default function AddTodo(){
                         value={description}
                         onChange={handleDescriptionChange}
                         bg="gray.50" 
+                        border="1px solid gray"
+                        focusBorderColor='green.600'
                         borderRadius="md" 
                     />
                 </span>
-                <Button colorScheme="green" type="submit">+</Button>
+                <Button colorScheme="green" type="submit"><AddIcon /></Button>
             </form>
-            <div id='alertBox' className='w-8/12 mx-auto mb-5 text-center'></div>
+            <div id='alertBox' className='w-8/12 mx-auto mb-5 text-center text-green-300 font-semibold'></div>
         </div>
-        <div className="container lg:hidden">
+        <div className="container lg:hidden mx-auto">
             <form onSubmit={handleSubmit} className="add-todo w-10/12 mx-auto grid grid-cols-7 gap-4 my-5 ">
                 <span className="col-span-7">
                     <Input
@@ -83,6 +89,8 @@ export default function AddTodo(){
                         value={taskTitle}
                         onChange={handleTitleChange}
                         bg="gray.50" 
+                        border="1px solid gray"
+                        focusBorderColor='green.600'
                         borderRadius="md" 
                     />
                 </span>
@@ -92,12 +100,14 @@ export default function AddTodo(){
                         value={description}
                         onChange={handleDescriptionChange}
                         bg="gray.50" 
+                        border="1px solid gray"
+                        focusBorderColor='green.600'
                         borderRadius="md" 
                     />
                 </span>
                 <div></div>
                 <div></div>
-                <Button colorScheme="green" type="submit" className='col-span-3'>+</Button>
+                <Button colorScheme="green" type="submit" className='col-span-3'><AddIcon /></Button>
             </form>
             <div id='alertBox' className='w-8/12 mx-auto mb-5 text-center'></div> 
         </div>
