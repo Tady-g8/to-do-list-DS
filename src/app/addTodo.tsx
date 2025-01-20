@@ -51,28 +51,57 @@ export default function AddTodo(){
 
     return (
         <>
-        <form onSubmit={handleSubmit} className="add-todo w-10/12 mx-auto grid grid-cols-7 gap-4 my-5 ">
-            <span className="col-span-2">
-                <Input
-                    placeholder="Task title..."
-                    value={taskTitle}
-                    onChange={handleTitleChange}
-                    bg="gray.50" 
-                    borderRadius="md" 
-                />
-            </span>
-            <span className="col-span-4">
-                <Input
-                    placeholder="Description..."
-                    value={description}
-                    onChange={handleDescriptionChange}
-                    bg="gray.50" 
-                    borderRadius="md" 
-                />
-            </span>
-            <Button colorScheme="green" type="submit">+</Button>
-        </form>
-        <div id='alertBox' className='w-8/12 mx-auto mb-5 text-center'></div>
+        <div className="container hidden lg:block">
+            <form onSubmit={handleSubmit} className="add-todo w-10/12 mx-auto grid grid-cols-7 gap-4 my-5 ">
+                <span className="col-span-2">
+                    <Input
+                        placeholder="Task title..."
+                        value={taskTitle}
+                        onChange={handleTitleChange}
+                        bg="gray.50" 
+                        borderRadius="md" 
+                    />
+                </span>
+                <span className="col-span-4">
+                    <Input
+                        placeholder="Description..."
+                        value={description}
+                        onChange={handleDescriptionChange}
+                        bg="gray.50" 
+                        borderRadius="md" 
+                    />
+                </span>
+                <Button colorScheme="green" type="submit">+</Button>
+            </form>
+            <div id='alertBox' className='w-8/12 mx-auto mb-5 text-center'></div>
+        </div>
+        <div className="container lg:hidden">
+            <form onSubmit={handleSubmit} className="add-todo w-10/12 mx-auto grid grid-cols-7 gap-4 my-5 ">
+                <span className="col-span-7">
+                    <Input
+                        placeholder="Task title..."
+                        value={taskTitle}
+                        onChange={handleTitleChange}
+                        bg="gray.50" 
+                        borderRadius="md" 
+                    />
+                </span>
+                <span className="col-span-7">
+                    <Input
+                        placeholder="Description..."
+                        value={description}
+                        onChange={handleDescriptionChange}
+                        bg="gray.50" 
+                        borderRadius="md" 
+                    />
+                </span>
+                <div></div>
+                <div></div>
+                <Button colorScheme="green" type="submit" className='col-span-3'>+</Button>
+            </form>
+            <div id='alertBox' className='w-8/12 mx-auto mb-5 text-center'></div> 
+        </div>
+        
         </>
     );
 }
