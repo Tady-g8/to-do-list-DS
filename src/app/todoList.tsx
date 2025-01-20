@@ -17,6 +17,7 @@ export default function TodoList() {
     const [error, setError] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState("");
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -39,13 +40,33 @@ export default function TodoList() {
     }, []);
 
     if (loading) {
-        return <div className="w-8/12 mx-auto">
+        return <div className="w-10/12 mx-auto">
             <LoadingCircle />
         </div>;
     }
 
-    if (data === null){
-        return <div>No data</div>;
+    if (!data || data.length === 0) {
+        return (
+            <div className="w-10/12 mx-auto text-center py-12">
+                <div className="bg-gray-50 rounded-lg p-8 border border-gray-200">
+                    <svg 
+                        className="mx-auto h-12 w-12 text-gray-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth={2} 
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" 
+                        />
+                    </svg>
+                    <h3 className="mt-4 text-lg font-medium text-gray-900">No tasks found</h3>
+                    <p className="mt-2 text-gray-500">Get started by creating your first task!</p>
+                </div>
+            </div>
+        );
     }
 
     if (error) {
@@ -53,7 +74,7 @@ export default function TodoList() {
     }
 
     return (
-        <div className='todo-list w-8/12 mx-auto'>
+        <div className='todo-list w-10/12 mx-auto'>
 
             <Input 
                 placeholder='Search tasks' 
@@ -65,7 +86,7 @@ export default function TodoList() {
             {data?.filter(todo => 
                 todo.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 todo.description.toLowerCase().includes(searchTerm.toLowerCase())
-            ).map((todo: Todo) => (
+            ).sort((a, b) => b.id - a.id).map((todo: Todo) => (
                 todo.completed === 0 ?(
                     <div key={todo.id} className='todo-item mx-auto my-2'>
                         <div className="w-full border border-gray-300 p-2 rounded-md">

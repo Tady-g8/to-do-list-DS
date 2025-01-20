@@ -21,7 +21,10 @@ export default function AddTodo(){
         e.preventDefault(); 
 
         if (!taskTitle || !description) {
-            alert("Both fields are required");
+            const alertBox = document.getElementById('alertBox');
+            if (alertBox) {
+                alertBox.innerHTML = 'Please fill out all fields';
+            }
             return;
         }
 
@@ -47,7 +50,8 @@ export default function AddTodo(){
     }
 
     return (
-        <form onSubmit={handleSubmit} className="add-todo w-8/12 mx-auto grid grid-cols-7 gap-4 my-5">
+        <>
+        <form onSubmit={handleSubmit} className="add-todo w-10/12 mx-auto grid grid-cols-7 gap-4 my-5 ">
             <span className="col-span-2">
                 <Input
                     placeholder="Task title..."
@@ -68,5 +72,7 @@ export default function AddTodo(){
             </span>
             <Button colorScheme="green" type="submit">+</Button>
         </form>
+        <div id='alertBox' className='w-8/12 mx-auto mb-5 text-center'></div>
+        </>
     );
 }

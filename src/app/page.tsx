@@ -7,7 +7,7 @@ import TodoList from './todoList'
 
 export default function Page() {
   return (
-    <div className="page w-6/12 mx-auto">
+    <div className="page xl:w-6/12 mx-auto md:w-8/12">
       <h1 className='text-xl w-2/12 my-5 mx-auto'>My To-Do List</h1>
       <AddTodo />
       <TodoList />
